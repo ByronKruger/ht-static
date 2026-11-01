@@ -5,11 +5,12 @@ import { BlogService } from '../../services/blog/blog-service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-blog-list',
   styleUrl: './blog-list.scss',
   // templateUrl: './blog-list.html',
+  // <a [routerLink]="['/blog', post.slug || post.documentId]">
   template: `
     <h1>Blog</h1>
 
@@ -20,7 +21,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
         <ul>
           @for (post of list; track post.documentId) {
             <li>
-              <a [routerLink]="['/blog', post.slug || post.documentId]">
+              <a href="/blog/{{ post.slug || post.documentId }}">
                 {{ post.Title }}
               </a>
               <small> — {{ post.publishedAt | date }}</small>
