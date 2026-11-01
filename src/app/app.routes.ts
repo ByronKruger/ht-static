@@ -4,6 +4,10 @@ import { BlogDetails } from './components/blog-details/blog-details';
 
 export const routes: Routes = [
     {
+        path: '',
+        component: BlogList
+    },
+    {
         path: 'blogs',
         component: BlogList
     },

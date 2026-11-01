@@ -2,10 +2,10 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 import { environment } from '../environments/environment';
 
 export const serverRoutes: ServerRoute[] = [
-  // {
-  //   path: '',
-  //   renderMode: RenderMode.Prerender, // home page
-  // },
+  {
+    path: '',
+    renderMode: RenderMode.Prerender, // home page
+  },
   // {
   //   path: 'services',
   //   renderMode: RenderMode.Prerender
