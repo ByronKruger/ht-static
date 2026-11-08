@@ -1,6 +1,6 @@
-<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+<header class="sticky top-0 z-50 border-b border-slate-200 backdrop-blur nav-bg-color">
   <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-    <a routerLink="/" class="text-lg font-bold tracking-tight text-slate-900">Hopetech</a>
+    <a routerLink="/" class="text-lg font-bold tracking-tight text-color-light">Hopetech</a>
 
     <ul class="hidden items-center gap-8 sm:flex">
       @for (link of links; track link.path) {
@@ -10,12 +10,14 @@
             [routerLink]="link.path"
             routerLinkActive
             [routerLinkActiveOptions]="{ exact: link.path === '/' }"
-            [class.text-sky-600]="rla.isActive"
-            [class.font-semibold]="rla.isActive"
-            [class.text-slate-600]="!rla.isActive"
-            class="text-sm font-medium transition-colors hover:text-sky-600"
+            class="text-sm font-medium transition-colors text-hover-light-green"
+            [class.text-active-bold-green]="rla.isActive"
+            [class.text-not-active-gray]="!rla.isActive"
             >{{ link.label }}</a
-          >
+            >
+            <!-- [class.font-semibold]="rla.isActive"
+            [class.text-[#45F680]]="rla.isActive"
+            [class.text-[#BABABA]]="!rla.isActive" -->
         </li>
       }
     </ul>
@@ -23,7 +25,7 @@
     <button
       type="button"
       (click)="toggleMenu()"
-      class="inline-flex items-center justify-center rounded-md p-2 text-slate-600 sm:hidden"
+      class="inline-flex items-center justify-center rounded-md p-2 text- sm:hidden text-color-light"
       [attr.aria-expanded]="menuOpen()"
       aria-label="Toggle navigation menu"
     >
@@ -38,7 +40,7 @@
   </nav>
 
   @if (menuOpen()) {
-    <ul class="flex flex-col gap-1 border-t border-slate-200 px-4 py-3 sm:hidden">
+    <ul class="flex flex-col gap-1 border-t border-slate-200 text-color-light px-4 py-3 sm:hidden">
       @for (link of links; track link.path) {
         <li>
           <a
@@ -46,11 +48,10 @@
             [routerLink]="link.path"
             routerLinkActive
             [routerLinkActiveOptions]="{ exact: link.path === '/' }"
-            [class.text-sky-600]="rla.isActive"
-            [class.font-semibold]="rla.isActive"
-            [class.text-slate-600]="!rla.isActive"
+            [class.text-active-bold-green]="rla.isActive"
+            [class.text-not-active-gray]="!rla.isActive"
             (click)="closeMenu()"
-            class="block py-2 text-sm font-medium hover:text-sky-600"
+            class="block py-2 text-sm font-medium text-hover-light-green"
             >{{ link.label }}</a
           >
         </li>

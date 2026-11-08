@@ -9,7 +9,7 @@ import { EraOfAi } from './components/era-of-ai/era-of-ai';
 export const routes: Routes = [
     {
         path: '',
-        component: BlogList
+        component: AboutUs
     },
     {
         path: 'blogs',

@@ -11,7 +11,7 @@ export class NavBar {
   protected menuOpen = signal(false);
 
   protected readonly links = [
-    { label: 'Home', path: '/' },
+    // { label: 'Home', path: '/' },
     { label: 'Services', path: '/services' },
     { label: 'About Us', path: '/about-us' },
     { label: 'Era of AI', path: '/era-of-ai' },

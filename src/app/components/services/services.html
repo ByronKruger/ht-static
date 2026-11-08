@@ -9,31 +9,44 @@
 
     <div class="mx-auto mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
       @for (plan of data.ServicePlan; track plan.id) {
+        @let theme = getPlanTheme(plan.ServiceDetailsTitle);
         <article
-          class="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+          class="flex flex-col rounded-2xl border border-slate-200 p-6 shadow-sm transition-shadow hover:shadow-md"
+          [class.bg-white]="!theme"
+          [style.background-color]="theme?.background"
         >
-          <h2 class="text-xl font-semibold text-slate-900">{{ plan.ServiceDetailsTitle }}</h2>
+          <h2 class="text-xl font-semibold" [class.text-slate-900]="!theme?.accent" [style.color]="theme?.accent">
+            {{ plan.ServiceDetailsTitle }}
+          </h2>
 
           <div class="mt-4 flex-1">
-            <app-strapi-blocks [nodes]="plan.ServiceDetails" />
+            <app-strapi-blocks [nodes]="plan.ServiceDetails" [textColor]="theme?.text ?? null" />
           </div>
 
-          <div class="mt-6 border-t border-slate-100 pt-6">
+          <div
+            class="mt-6 border-t pt-6"
+            [class.border-slate-100]="!theme?.accent"
+            [style.border-top-color]="theme?.accent"
+          >
             @if (plan.BaseCost != null) {
-              <p class="text-2xl font-bold text-slate-900">
+              <p class="text-2xl font-bold" [class.text-slate-900]="!theme?.accent" [style.color]="theme?.accent">
                 {{ plan.BaseCost | currency: currencyCode : 'symbol' : '1.0-0' }}
               </p>
             }
             @if (plan.baseCostDescription) {
-              <p class="mt-1 text-xs text-slate-500">{{ plan.baseCostDescription }}</p>
+              <p class="mt-1 text-xs" [class.text-slate-500]="!theme?.text" [style.color]="theme?.text">
+                {{ plan.baseCostDescription }}
+              </p>
             }
 
             @if (plan.extraCost != null) {
-              <p class="mt-4 text-sm font-semibold text-slate-700">
+              <p class="mt-4 text-sm font-semibold" [class.text-slate-700]="!theme?.accent" [style.color]="theme?.accent">
                 + {{ plan.extraCost | currency: currencyCode : 'symbol' : '1.0-0' }} extra
               </p>
               @if (plan.ExtraCostDescription) {
-                <p class="mt-1 text-xs text-slate-500">{{ plan.ExtraCostDescription }}</p>
+                <p class="mt-1 text-xs" [class.text-slate-500]="!theme?.text" [style.color]="theme?.text">
+                  {{ plan.ExtraCostDescription }}
+                </p>
               }
             }
           </div>

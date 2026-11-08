@@ -18,6 +18,9 @@ export interface StrapiBlocksLinkify {
  *
  * Pass `linkify` to turn a specific phrase (e.g. "contact us") into a
  * routerLink wherever it appears in the rendered text.
+ *
+ * Pass `textColor` (any CSS color) to override the default slate text
+ * color - e.g. for a themed card with a custom background.
  */
 @Component({
   selector: 'app-strapi-blocks',
@@ -29,11 +32,12 @@ export interface StrapiBlocksLinkify {
           @if (segment.isLink) {
             <a
               [routerLink]="linkify()!.routerLink"
-              class="font-medium text-sky-600 underline underline-offset-2 hover:text-sky-700"
+              class="font-medium underline underline-offset-2 text-[#0BDA51]"
               >{{ segment.text }}</a
             >
           } @else {
             <span
+              [style.color]="textColor()"
               [class.font-semibold]="child.bold"
               [class.italic]="child.italic"
               [class.underline]="child.underline"
@@ -48,34 +52,34 @@ export interface StrapiBlocksLinkify {
     @for (node of nodes(); track $index) {
       @switch (node.type) {
         @case ('paragraph') {
-          <p class="text-sm leading-relaxed text-slate-600">
+          <p class="text-sm leading-relaxed text-slate-600" [style.color]="textColor()">
             <ng-container [ngTemplateOutlet]="textChildren" [ngTemplateOutletContext]="{ children: node.children }" />
           </p>
         }
         @case ('heading') {
           @switch (node.level) {
             @case (1) {
-              <h1 class="text-2xl font-bold text-slate-900">
+              <h1 class="text-2xl font-bold text-slate-900" [style.color]="textColor()">
                 <ng-container [ngTemplateOutlet]="textChildren" [ngTemplateOutletContext]="{ children: node.children }" />
               </h1>
             }
             @case (2) {
-              <h2 class="text-xl font-bold text-slate-900">
+              <h2 class="text-xl font-bold text-slate-900" [style.color]="textColor()">
                 <ng-container [ngTemplateOutlet]="textChildren" [ngTemplateOutletContext]="{ children: node.children }" />
               </h2>
             }
             @case (3) {
-              <h3 class="text-lg font-semibold text-slate-900">
+              <h3 class="text-lg font-semibold text-slate-900" [style.color]="textColor()">
                 <ng-container [ngTemplateOutlet]="textChildren" [ngTemplateOutletContext]="{ children: node.children }" />
               </h3>
             }
             @case (4) {
-              <h4 class="text-base font-semibold text-slate-900">
+              <h4 class="text-base font-semibold text-slate-900" [style.color]="textColor()">
                 <ng-container [ngTemplateOutlet]="textChildren" [ngTemplateOutletContext]="{ children: node.children }" />
               </h4>
             }
             @default {
-              <h5 class="text-sm font-semibold text-slate-900">
+              <h5 class="text-sm font-semibold text-slate-900" [style.color]="textColor()">
                 <ng-container [ngTemplateOutlet]="textChildren" [ngTemplateOutletContext]="{ children: node.children }" />
               </h5>
             }
@@ -83,16 +87,18 @@ export interface StrapiBlocksLinkify {
         }
         @case ('list') {
           <ul
-            class="ms-4 list-outside space-y-1.5 text-sm leading-relaxed text-slate-600 marker:text-sky-500"
+            class="ms-4 list-outside space-y-1.5 text-sm leading-relaxed text-slate-600"
             [class.list-disc]="node.format !== 'ordered'"
             [class.list-decimal]="node.format === 'ordered'"
+            [class.marker:text-sky-500]="!textColor()"
+            [style.color]="textColor()"
           >
             @for (group of groupListChildren(node.children); track $index) {
               <li>
                 <ng-container [ngTemplateOutlet]="textChildren" [ngTemplateOutletContext]="{ children: group.item.children }" />
 
                 @if (group.nested.length) {
-                  <app-strapi-blocks class="mt-1 block" [nodes]="group.nested" [linkify]="linkify()" />
+                  <app-strapi-blocks class="mt-1 block" [nodes]="group.nested" [linkify]="linkify()" [textColor]="textColor()" />
                 }
               </li>
             }
@@ -105,6 +111,7 @@ export interface StrapiBlocksLinkify {
 export class StrapiBlocks {
   nodes = input<StrapiBlockNode[]>([]);
   linkify = input<StrapiBlocksLinkify | null>(null);
+  textColor = input<string | null>(null);
 
   protected groupListChildren(
     children: Array<StrapiListItemNode | StrapiListNode>
