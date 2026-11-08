@@ -1,0 +1,46 @@
+@if (pricing(); as data) {
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:py-16">
+    <div class="mx-auto max-w-2xl text-center">
+      <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{{ data.Title }}</h1>
+      <div class="mt-4 text-base leading-relaxed text-slate-600 text-justify">
+        <app-strapi-blocks [nodes]="data.Description ?? []" [linkify]="descriptionLinkify" />
+      </div>
+    </div>
+
+    <div class="mx-auto mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+      @for (plan of data.ServicePlan; track plan.id) {
+        <article
+          class="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+        >
+          <h2 class="text-xl font-semibold text-slate-900">{{ plan.ServiceDetailsTitle }}</h2>
+
+          <div class="mt-4 flex-1">
+            <app-strapi-blocks [nodes]="plan.ServiceDetails" />
+          </div>
+
+          <div class="mt-6 border-t border-slate-100 pt-6">
+            @if (plan.BaseCost != null) {
+              <p class="text-2xl font-bold text-slate-900">
+                {{ plan.BaseCost | currency: currencyCode : 'symbol' : '1.0-0' }}
+              </p>
+            }
+            @if (plan.baseCostDescription) {
+              <p class="mt-1 text-xs text-slate-500">{{ plan.baseCostDescription }}</p>
+            }
+
+            @if (plan.extraCost != null) {
+              <p class="mt-4 text-sm font-semibold text-slate-700">
+                + {{ plan.extraCost | currency: currencyCode : 'symbol' : '1.0-0' }} extra
+              </p>
+              @if (plan.ExtraCostDescription) {
+                <p class="mt-1 text-xs text-slate-500">{{ plan.ExtraCostDescription }}</p>
+              }
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+} @else {
+  <p class="py-16 text-center text-slate-500">Loading pricing…</p>
+}

@@ -6,10 +6,22 @@ export const serverRoutes: ServerRoute[] = [
     path: '',
     renderMode: RenderMode.Prerender, // home page
   },
-  // {
-  //   path: 'services',
-  //   renderMode: RenderMode.Prerender
-  // },
+  {
+    path: 'services',
+    renderMode: RenderMode.Prerender // services & pricing page
+  },
+  {
+    path: 'about-us',
+    renderMode: RenderMode.Prerender // about us page
+  },
+  {
+    path: 'contact-us',
+    renderMode: RenderMode.Prerender // contact us page
+  },
+  {
+    path: 'era-of-ai',
+    renderMode: RenderMode.Prerender // era of ai page
+  },
   {
     path: 'blogs',
     renderMode: RenderMode.Prerender // blog list

@@ -1,0 +1,60 @@
+<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+    <a routerLink="/" class="text-lg font-bold tracking-tight text-slate-900">Hopetech</a>
+
+    <ul class="hidden items-center gap-8 sm:flex">
+      @for (link of links; track link.path) {
+        <li>
+          <a
+            #rla="routerLinkActive"
+            [routerLink]="link.path"
+            routerLinkActive
+            [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+            [class.text-sky-600]="rla.isActive"
+            [class.font-semibold]="rla.isActive"
+            [class.text-slate-600]="!rla.isActive"
+            class="text-sm font-medium transition-colors hover:text-sky-600"
+            >{{ link.label }}</a
+          >
+        </li>
+      }
+    </ul>
+
+    <button
+      type="button"
+      (click)="toggleMenu()"
+      class="inline-flex items-center justify-center rounded-md p-2 text-slate-600 sm:hidden"
+      [attr.aria-expanded]="menuOpen()"
+      aria-label="Toggle navigation menu"
+    >
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        @if (!menuOpen()) {
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        } @else {
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        }
+      </svg>
+    </button>
+  </nav>
+
+  @if (menuOpen()) {
+    <ul class="flex flex-col gap-1 border-t border-slate-200 px-4 py-3 sm:hidden">
+      @for (link of links; track link.path) {
+        <li>
+          <a
+            #rla="routerLinkActive"
+            [routerLink]="link.path"
+            routerLinkActive
+            [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+            [class.text-sky-600]="rla.isActive"
+            [class.font-semibold]="rla.isActive"
+            [class.text-slate-600]="!rla.isActive"
+            (click)="closeMenu()"
+            class="block py-2 text-sm font-medium hover:text-sky-600"
+            >{{ link.label }}</a
+          >
+        </li>
+      }
+    </ul>
+  }
+</header>
