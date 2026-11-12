@@ -10,7 +10,7 @@
           <h2 class="text-xl font-semibold text-slate-900">{{ entry.Title }}</h2>
 
           <div class="mt-4 flex-1 space-y-4">
-            <app-strapi-blocks [nodes]="entry.Content" />
+            <app-strapi-blocks [nodes]="entry.Content" [linkify]="contentLinkify" />
           </div>
         </article>
       }

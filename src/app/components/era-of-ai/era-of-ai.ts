@@ -12,6 +12,10 @@ import { EraOfAiService } from '../../services/era-of-ai/era-of-ai-service';
 export class EraOfAi {
   private eraOfAiService = inject(EraOfAiService);
 
+  // The CMS copy wraps the name in quotes ("the 'No Vibes Coder' offered
+  // service"), so match the words themselves rather than a leading "The"
+  protected readonly contentLinkify = { phrase: 'No Vibes Coder', routerLink: '/services' };
+
   // Fetched during prerender (build time) via RenderMode.Prerender on the
   // 'era-of-ai' route - the resulting HTML is what ships as the static page
   page = toSignal(this.eraOfAiService.getEraOfAi(), { initialValue: null });

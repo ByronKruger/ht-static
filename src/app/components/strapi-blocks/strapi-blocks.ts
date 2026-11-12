@@ -52,7 +52,7 @@ export interface StrapiBlocksLinkify {
     @for (node of nodes(); track $index) {
       @switch (node.type) {
         @case ('paragraph') {
-          <p class="text-sm leading-relaxed text-slate-600" [style.color]="textColor()">
+          <p class="text-sm leading-relaxed text-slate-600 pt-2" [style.color]="textColor()">
             <ng-container [ngTemplateOutlet]="textChildren" [ngTemplateOutletContext]="{ children: node.children }" />
           </p>
         }
@@ -69,7 +69,7 @@ export interface StrapiBlocksLinkify {
               </h2>
             }
             @case (3) {
-              <h3 class="text-lg font-semibold text-slate-900" [style.color]="textColor()">
+              <h3 class="text-lg font-semibold text-slate-900 pt-2" [style.color]="textColor()">
                 <ng-container [ngTemplateOutlet]="textChildren" [ngTemplateOutletContext]="{ children: node.children }" />
               </h3>
             }

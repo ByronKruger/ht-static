@@ -8,6 +8,9 @@ export interface ServicePlan {
   extraCost: number | null;
   ExtraCostDescription: string | null;
   baseCostDescription: string | null;
+  // Strapi field name carries a typo ('Const'); kept in sync with the CMS schema
+  baseConstPeriod: string | null;
+  extraCostPeriod: string | null;
 }
 
 export interface ServicesPricing {
